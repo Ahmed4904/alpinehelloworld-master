@@ -1,0 +1,21 @@
+stages:
+  - Build
+  - Test acceptation
+docker-build :
+  image : docker:latest
+  services:
+    - docker : dind
+  stage : Build
+  script : 
+    - docker build -t alpinehelloworld .
+
+test acceptation :
+  image : docker:latest
+  services:
+    - name : docker : dind
+      alias : docker
+  stage : Test acceptation
+  script : 
+    - docker run -d -p 80:5000 -e PORT=5000 --name webapp alpinehelloworld
+    - sleep 5
+    - curl "http://docker" | grep "Hello world!"
