@@ -4,10 +4,14 @@ stages:
 docker-build :
   image : docker:latest
   services:
-    - docker : dind
+    - docker:dind
   stage : Build
   script : 
     - docker build -t alpinehelloworld .
+    - docker save alpinehelloworld > alpinehelloworld.tar
+  artifacts:
+    paths:
+      - alpinehelloworld.tar
 
 test acceptation :
   image : docker:latest
