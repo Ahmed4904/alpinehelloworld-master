@@ -12,7 +12,7 @@ docker-build :
 test acceptation :
   image : docker:latest
   services:
-    - name : docker : dind
+    - name : docker:dind
       alias : docker
   stage : Test acceptation
   script : 
